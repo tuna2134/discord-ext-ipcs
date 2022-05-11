@@ -3,7 +3,8 @@ import asyncio
 
 
 async def echo(ws):
-    print(await ws.recv())
+    while True:
+        print(await ws.recv())
     
 async def main():
     async with serve(echo, "localhost", 8080):
