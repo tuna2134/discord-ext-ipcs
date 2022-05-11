@@ -21,7 +21,7 @@ async def on_ipc_connect():
     print("ipc connected")
     
 @client.event
-async def ipc_close():
+async def on_ipc_close():
     print("Ipc closed")
         
 @ipc_client.listen("ready")
