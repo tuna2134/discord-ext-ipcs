@@ -6,7 +6,7 @@ async def echo(ws):
     print(await ws.recv())
     
 async def main():
-    async with serve():
+    async with serve(echo, "localhost", 8080):
         await asyncio.Future()
         
 asyncio.run(main())
