@@ -12,6 +12,10 @@ extras_require = {
     ]
 }
 
+packages = [
+    "discord.ext.ipc"
+]
+
 setuptools.setup(
     name="discord-ext-ipc",
     version="0.0.1a",
@@ -23,7 +27,7 @@ setuptools.setup(
     url="https://github.com/tuna2134/discord-ext-ipc",
     install_requires=_requires_from_file('requirements.txt'),
     extras_require=extras_require,
-    packages=setuptools.find_packages(),
+    packages=packages,
     classifiers=[
         "Programming Language :: Python :: 3.9",
         "License :: OSI Approved :: MIT License",
