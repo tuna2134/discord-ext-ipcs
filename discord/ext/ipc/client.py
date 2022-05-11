@@ -1,6 +1,7 @@
 # discord.ext.ipc - client
 from websockets.client import WebSocketClientProtocol
 from .errors import ConnectionError
+from .items import ResponseItem
 from websockets import connect
 from discord import Client
 import asyncio
@@ -132,17 +133,3 @@ class Client:
 
         if data["type"] in self.events:
             await self.dispatch(data["type"], data["data"])
-
-class ResponseItem:
-    """Response data
-    
-    Args:
-        data (dict): Some kind of data.
-        
-    Examples:
-        response = ResponseItem({"hello": "world", "message": "What your name?"})
-        print(response.hello)
-    """
-    def __init__(self, data: dict):
-        for name, value in data.items():
-            setattr(self, name, value)
