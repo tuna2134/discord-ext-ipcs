@@ -57,4 +57,15 @@ class Client:
     async def recv(self):
         data = loads(await self.ws.recv())
         if data["type"] in self.events:
-            self.loop.create_task(self.events[data["type"]]())
+            self.loop.create_task(
+                self.events[data["type"]](
+                    ResponseItem(
+                        data["data"]
+                    )
+                )
+            )
+
+class ResponseItem:
+    def __init__(self, data: dict):
+        for name, value in data.items():
+            setattr(self, name, value)
