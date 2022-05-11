@@ -14,7 +14,7 @@ ipc_client = ipc.Client(client, "TopSecretKey")
 @client.event
 async def on_ready():
     async with ipc_client:
-        await ipc_client.connect("localhost")
+        await ipc_client.connect("ws://localhost/ipc")
 
 @client.event
 async def on_ipc_connect():
