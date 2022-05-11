@@ -119,6 +119,11 @@ class Client:
             return func
         return decorator
     
+    def dispatch(self, eventtype: str, response: ResponseItem):
+        if eventtype in self.events:
+            await asyncio.gather(*[coro(response) for coro in self.events[eventtype]])
+        self.client.dispatch("ipc_{}".format(eventtype))
+    
     async def recv(self) -> None:
         data = loads(await self.ws.recv())
         
@@ -126,13 +131,7 @@ class Client:
             self.client.dispatch("ipc_close")
 
         if data["type"] in self.events:
-            self.loop.create_task(
-                self.events[data["type"]](
-                    ResponseItem(
-                        data["data"]
-                    )
-                )
-            )
+            self.dispatch(data["type"], data["data"])
 
 class ResponseItem:
     """Response data
