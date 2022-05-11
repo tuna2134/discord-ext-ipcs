@@ -1,7 +1,8 @@
 # discord.ext.ipc - client
 from websockets.client import WebSocketClientProtocol
-from .errors import ConnectionError
+from .errors import ConnectionError, AsyncError
 from .items import ResponseItem
+from inspect import iscoroutine
 from websockets import connect
 from discord import Client
 import asyncio
@@ -113,6 +114,8 @@ class Client:
                 await self.request("hello", {"message": "My name is Satoshi"})
         """
         def decorator(func):
+            if not iscoroutine(func):
+                raise AsyncError("Function is not corotinue")
             if eventtype in self.events:
                 self.events[eventtype].append(func)
             else:
