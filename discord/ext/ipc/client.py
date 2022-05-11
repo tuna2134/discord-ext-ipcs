@@ -9,7 +9,7 @@ import asyncio
 try:
     from orjson import dumps, loads
 except ImportError:
-    from json import dumps, load
+    from json import dumps, loads
 
 
 class Client:
