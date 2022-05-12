@@ -18,7 +18,7 @@ packages = [
 
 setuptools.setup(
     name="discord-ext-ipc",
-    version="0.0.2a",
+    version="0.0.2a1",
     author="DMS",
     author_email="masato190411@gmail.com",
     description="Discord ipc client.",
