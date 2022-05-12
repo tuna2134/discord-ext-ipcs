@@ -62,7 +62,7 @@ class Client:
         """
         if self.ws is not None:
             if not self.ws.closed:
-                await self.ws.close(message=dumps({"type": "close", "message": message)
+                await self.ws.close(message=dumps({"type": "close", "message": message})
                 self.client.dispatch("ipc_close")
             self.ws = None
         else:
