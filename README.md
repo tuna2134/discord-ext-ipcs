@@ -7,7 +7,7 @@ import discord
 from discord.ext import ipc
 
 
-client = discord.Client(intents=discord.Intents.All())
+client = discord.Client(intents=discord.Intents.all())
 ipc_client = ipc.Client(client, "TopSecretKey")
 
 
