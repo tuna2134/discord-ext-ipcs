@@ -84,7 +84,7 @@ class Client:
         Examples:
             await ipc_client.login()
         """
-        return self.request("login")
+        return self.request("login", {"token": self.secret_key})
             
     async def request(self, eventtype: str, data: dict={}) -> None:
         """Send something to ipc server
