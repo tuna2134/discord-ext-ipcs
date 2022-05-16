@@ -14,21 +14,47 @@ except ImportError:
 
 
 class Client:
-    def __init__(self, client: Client, secret_key: str, *, loop=None):
+    """ipc client
+    
+    Args:
+        client (discord.Client): Discord client
+        secret_key (str): secret key
+        loop
+    """
+    def __init__(
+        self,
+        client: Client,
+        secret_key: str,
+        *, loop=None
+        log: bool=False
+    ):
         self.client = client
         self.secret_key = secret_key
         self.loop = loop
+        self.log: bool = log
         self.ws: WebSocketClientProtocol = None
         self.events: list = []
         self.uri: str = None
+            
+    def print(self, content: str) -> None:
+        """This can print like sanic
+        
+        Args:
+            content (str): content
+        """
+        print("[ipc.Client]: {}".format(client))
         
     async def __aenter__(self):
         if self.loop is None:
             self.loop = asyncio.get_running_loop()
         
     async def __aexit__(self, *args):
-        await self.close()
-        self.loop.close()
+        try:
+            await self.close()
+        except Exception:
+            pass
+        finally:
+            self.loop.close()
         
     async def connect(self, uri: str) -> None:
         """Connect to ipc server
@@ -46,6 +72,7 @@ class Client:
         if self.ws is not None:
             raise ConnectionError("Already connected")
         self.ws = await connect(uri)
+        self.print("Connected")
         self.client.dispatch("ipc_connect")
         await self.login()
         while self.ws.open:
@@ -63,6 +90,7 @@ class Client:
         if self.ws is not None:
             if not self.ws.closed:
                 await self.ws.close(message=dumps({"type": "close", "message": message}))
+                self.print("close")
                 self.client.dispatch("ipc_close")
             self.ws = None
         else:
@@ -123,9 +151,10 @@ class Client:
             return func
         return decorator
     
-    async def dispatch(self, eventtype: str, response: ResponseItem):
+    def dispatch(self, eventtype: str, response: ResponseItem):
         if eventtype in self.events:
-            await asyncio.gather(*[coro(response) for coro in self.events[eventtype]])
+            for coro in self.events[eventtype]:
+                self.loop.create_task(coro())
         self.client.dispatch("ipc_{}".format(eventtype))
     
     async def recv(self) -> None:
@@ -134,5 +163,4 @@ class Client:
         if data["type"] == "close":
             self.client.dispatch("ipc_close")
 
-        if data["type"] in self.events:
-            await self.dispatch(data["type"], data["data"])
+        self.dispatch(data["type"], data["data"])
