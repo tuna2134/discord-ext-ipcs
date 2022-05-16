@@ -78,7 +78,7 @@ class Websocket(metaclass=WebsocketMeta):
         }
         await self.ws.send(dumps(payload))
     
-    async def recv(ws: WebSocketServerProtocol):
+    async def recv(self, ws: WebSocketServerProtocol):
         while ws.open:
             data = loads(await ws.recv())
             self.dispatch(data["type"], data["data"])
