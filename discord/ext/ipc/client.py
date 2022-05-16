@@ -78,7 +78,7 @@ class Client:
         while self.ws.open:
             await self.recv()
     
-    async def close(self, message: str="Bye") -> None:
+    async def close(self, code: int=1000, message: str="Bye") -> None:
         """Close from ipc server
         
         Raises:
@@ -89,7 +89,8 @@ class Client:
         """
         if self.ws is not None:
             if not self.ws.closed:
-                await self.ws.close(message=dumps({"type": "close", "message": message}))
+                await self.ws.close(code=code, message=dumps({"type": "close", "message": message}))
+                await self.ws.wait_closed()
                 self.print("close")
                 self.client.dispatch("ipc_close")
             self.ws = None
