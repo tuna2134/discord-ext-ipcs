@@ -2,9 +2,11 @@ import setuptools
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
-    
+
+
 def _requires_from_file(filename):
     return open(filename, encoding="utf8").read().splitlines()
+
 
 extras_require = {
     "speed": [
