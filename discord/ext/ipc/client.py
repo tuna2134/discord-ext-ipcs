@@ -22,10 +22,9 @@ class Client:
         loop
     """
     def __init__(
-        self,
-        client: Client,
-        secret_key: str,
-        *, loop=None
+        self, client: Client,
+        secret_key: str, *,
+        loop: asyncio.AbstractEventLoop=None
         log: bool=False
     ):
         self.client = client
