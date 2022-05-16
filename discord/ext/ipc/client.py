@@ -39,7 +39,7 @@ class Client:
         Args:
             content (str): content
         """
-        if log:
+        if self.log:
             print("[ipc.Client]: {}".format(content))
         
     async def __aenter__(self):
