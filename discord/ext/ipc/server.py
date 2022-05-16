@@ -31,7 +31,7 @@ class Websocket(metaclass=WebsocketMeta):
         Args:
             content (str): content
         """
-        print("[ipc.Server]: {}".format(client))
+        print("[ipc.Server]: {}".format(content))
         
     def __new__(cls, ws: WebSocketServerProtocol):
         self = super().__new__(cls)
