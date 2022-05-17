@@ -52,8 +52,6 @@ class Client:
             await self.close()
         except Exception:
             pass
-        finally:
-            self.loop.close()
 
     async def connect(self, uri: str) -> None:
         """Connect to ipc server
