@@ -3,12 +3,19 @@ import asyncio
 from discord.ext import ipc
 
 
-client = discord.Client(intents=discord.Intents.all())
-ipc_client = ipc.Client(client, "Test")
+class MyClient(discord.Client):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.ipc_client = ipc.Client(client, "Test")
+        
+    async def setup_hook(self):
+        async with ipc_client:
+            await ipc_client.connect("ws://localhost:8080")
+    
+    async def on_ipc_connect(self, r):
+        print("Connected")
+    
+client = MyClient(intents=discord.Intents.all())
 
 
-async def main():
-    async with ipc_client:
-        await ipc_client.connect("ws://localhost:8080")
-
-asyncio.run(main())
+client.run("TOKEN")
