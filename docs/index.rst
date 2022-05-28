@@ -9,6 +9,10 @@ Welcome to discord-ext-ipcs's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+   
+   
+   server
+   api_reference
 
 
 
