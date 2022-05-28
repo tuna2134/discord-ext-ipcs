@@ -45,11 +45,12 @@ class Client:
         if self.log:
             print("[ipc.Client]: {}".format(content))
 
-    async def __aenter__(self):
+    async def __aenter__(self) -> Client:
         if self.loop is None:
             self.loop = asyncio.get_running_loop()
+        return self
 
-    async def __aexit__(self, *args):
+    async def __aexit__(self, *args) -> None:
         try:
             await self.close()
         except Exception:
