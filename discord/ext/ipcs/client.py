@@ -56,7 +56,7 @@ class Client:
         except Exception:
             pass
 
-    async def connect(self, uri: str, *, reconnect: Optional[bool]=True) -> None:
+    async def connect(self, uri: str, *, reconnect: Optional[bool] = True) -> None:
         """Connect to ipc server
 
         Args:
@@ -83,7 +83,7 @@ class Client:
 
     async def close(self, code: Optional[int] = 1000, message: Optional[str] = "Bye") -> None:
         """Close from ipc server
-        
+
         Args:
             code (Optional[int]): Close code
             message (Optional[str]): Close message
@@ -156,7 +156,7 @@ class Client:
 
     def dispatch(self, eventtype: str, response: ResponseItem) -> None:
         """Run function
-        
+
         Args:
             eventtype (str): Event type
             response (ResponseItem): response item

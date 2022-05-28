@@ -6,8 +6,8 @@ try:
     from orjson import loads, dumps
 except ImportError:
     from json import loads, dumps
-    
-    
+
+
 class AsyncError(Exception):
     pass
 
