@@ -7,6 +7,7 @@ with open("README.md", "r") as fh:
 def _requires_from_file(filename):
     return open(filename, encoding="utf8").read().splitlines()
 
+
 def _get_version(filename):
     with open(filename, "r") as f:
         lines = f.readlines()
