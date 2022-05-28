@@ -53,11 +53,12 @@ class Client:
         except Exception:
             pass
 
-    async def connect(self, uri: str) -> None:
+    async def connect(self, uri: str, *, reconnect: bool=True) -> None:
         """Connect to ipc server
 
         Args:
             uri (str): URI
+            reconnect (bool): Reconnect when it was closed.
 
         Examples:
             await ipc_client.connect("ws://localhost/ipc")
@@ -74,6 +75,8 @@ class Client:
         await self.login()
         while self.ws.open:
             await self.recv()
+        if reconnect:
+            await self.connect(uri, reconnect=reconnect)
 
     async def close(self, code: int = 1000, message: str = "Bye") -> None:
         """Close from ipc server
