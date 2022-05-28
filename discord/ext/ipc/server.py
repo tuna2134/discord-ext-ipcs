@@ -6,10 +6,16 @@ try:
     from orjson import loads, dumps
 except ImportError:
     from json import loads, dumps
+    
+    
+class AsyncError(Exception):
+    pass
 
 
 def listen(name: str):
     def decorator(function):
+        if iscoroutine(function):
+            raise AsyncError("This function is not async")
         function._listen = name
         return function
     return decorator
