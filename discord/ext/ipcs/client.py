@@ -5,6 +5,7 @@ from .items import ResponseItem
 from inspect import iscoroutine
 from websockets import connect
 from discord import Client
+from typing import Optional
 import asyncio
 
 try:
@@ -19,13 +20,14 @@ class Client:
     Args:
         client (discord.Client): Discord client
         secret_key (str): secret key
-        loop (asyncio.AbstractEventLoop): Event loop
+        loop (Optional[asyncio.AbstractEventLoop]): Event loop
+        log (Optional[bool]): show log
     """
 
     def __init__(self, client: Client,
                  secret_key: str, *,
-                 loop: asyncio.AbstractEventLoop = None,
-                 log: bool = False):
+                 loop: Optional[asyncio.AbstractEventLoop] = None,
+                 log: Optional[bool] = False):
         self.client = client
         self.secret_key = secret_key
         self.loop = loop
@@ -53,12 +55,12 @@ class Client:
         except Exception:
             pass
 
-    async def connect(self, uri: str, *, reconnect: bool=True) -> None:
+    async def connect(self, uri: str, *, reconnect: Optional[bool]=True) -> None:
         """Connect to ipc server
 
         Args:
             uri (str): URI
-            reconnect (bool): Reconnect when it was closed.
+            reconnect (Optional[bool]): Reconnect when it was closed.
 
         Examples:
             await ipc_client.connect("ws://localhost/ipc")
@@ -78,8 +80,12 @@ class Client:
         if reconnect:
             await self.connect(uri, reconnect=reconnect)
 
-    async def close(self, code: int = 1000, message: str = "Bye") -> None:
+    async def close(self, code: Optional[int] = 1000, message: Optional[str] = "Bye") -> None:
         """Close from ipc server
+        
+        Args:
+            code (Optional[int]): Close code
+            message (Optional[str]): Close message
 
         Raises:
             ConnectionError: If you already close, it will be raise.
@@ -115,7 +121,7 @@ class Client:
         """
         return self.request("login", {"token": self.secret_key})
 
-    async def request(self, eventtype: str, data: dict = {}) -> None:
+    async def request(self, eventtype: str, data: Optiona[dict] = {}) -> None:
         """Send something to ipc server
 
         Args:
