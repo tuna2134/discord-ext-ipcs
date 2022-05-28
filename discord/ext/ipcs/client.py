@@ -153,7 +153,7 @@ class Client:
             return func
         return decorator
 
-    def dispatch(self, eventtype: str, response: ResponseItem):
+    def dispatch(self, eventtype: str, response: ResponseItem) -> None:
         """Run function
         
         Args:
