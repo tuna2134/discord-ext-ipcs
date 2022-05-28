@@ -7,6 +7,16 @@ with open("README.md", "r") as fh:
 def _requires_from_file(filename):
     return open(filename, encoding="utf8").read().splitlines()
 
+def _get_version(filename):
+    with open(filename, "r") as f:
+        lines = f.readlines()
+    version = None
+    for line in lines:
+        if "__version__" in line:
+            version = line.split()[2]
+            break
+    return version.replace('"', '')
+
 
 extras_require = {
     "speed": [
@@ -20,7 +30,7 @@ packages = [
 
 setuptools.setup(
     name="discord-ext-ipcs",
-    version="0.0.2",
+    version=_get_version("discord/ext/ipcs/__init__.py"),
     author="DMS",
     author_email="masato190411@gmail.com",
     description="Discord ipc client.",
