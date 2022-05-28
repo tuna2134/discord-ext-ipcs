@@ -19,7 +19,7 @@ class Client:
     Args:
         client (discord.Client): Discord client
         secret_key (str): secret key
-        loop
+        loop (asyncio.AbstractEventLoop): Event loop
     """
 
     def __init__(self, client: Client,
