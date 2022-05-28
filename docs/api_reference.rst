@@ -23,7 +23,7 @@ discord.ext.ipcs.errors module
 discord.ext.ipcs.items module
 --------------------
 
-.. automodule:: discord.ext.ipcs.client.items
+.. automodule:: discord.ext.ipcs.items
    :members:
    :undoc-members:
    :show-inheritance:
