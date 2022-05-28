@@ -6,11 +6,11 @@
 
 ```python
 import discord
-from discord.ext import ipc
+from discord.ext import ipcs
 
 
 client = discord.Client(intents=discord.Intents.all())
-ipc_client = ipc.Client(client, "TopSecretKey")
+ipc_client = ipcs.Client(client, "TopSecretKey")
 
 
 @client.event
