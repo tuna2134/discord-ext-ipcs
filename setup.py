@@ -19,14 +19,14 @@ packages = [
 ]
 
 setuptools.setup(
-    name="discord-ext-ipc",
+    name="discord-ext-ipcs",
     version="0.0.2",
     author="DMS",
     author_email="masato190411@gmail.com",
     description="Discord ipc client.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/tuna2134/discord-ext-ipc",
+    url="https://github.com/tuna2134/discord-ext-ipcs",
     install_requires=_requires_from_file('requirements.txt'),
     extras_require=extras_require,
     packages=packages,
