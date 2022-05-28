@@ -5,7 +5,7 @@ from .items import ResponseItem
 from inspect import iscoroutine
 from websockets import connect
 from discord import Client
-from typing import Optional
+from typing import Optional, Callable
 import asyncio
 
 try:
@@ -143,7 +143,7 @@ class Client:
         Args:
             eventtype (str): Event type.
         """
-        def decorator(func):
+        def decorator(func: Callable[[Any, Any], Coroutine[Any]]):
             if not iscoroutine(func):
                 raise AsyncError("Function is not corotinue")
             if eventtype in self.events:
