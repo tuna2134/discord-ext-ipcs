@@ -61,7 +61,9 @@ class Client:
             reconnect (bool): Reconnect when it was closed.
 
         Examples:
+            ```python
             await ipc_client.connect("ws://localhost/ipc")
+            ```
 
         Raises:
             ConnectionError: If you already connect, it will be raise.
@@ -85,7 +87,9 @@ class Client:
             ConnectionError: If you already close, it will be raise.
 
         Examples:
+            ```python
             await ipc_client.close()
+            ```
         """
         if self.ws is not None:
             if not self.ws.closed:
@@ -101,7 +105,9 @@ class Client:
         """Reconnect from ipc server
 
         Examples:
+            ```python
             await ipc_client.reconnect()
+            ```
         """
         await self.close()
         await asyncio.sleep(0.5)
@@ -123,7 +129,9 @@ class Client:
             data (dict): The data you want to send.
 
         Examples:
+            ```python
             await ipc_client.request("hello", {"message": "What your name"})
+            ```
         """
         payload = {
             "type": eventtype,
@@ -138,9 +146,11 @@ class Client:
             eventtype (str): Event type.
 
         Examples:
+            ```python
             @ipc_client.listen("hello")
             async def hello(response):
                 await self.request("hello", {"message": "My name is Satoshi"})
+            ```
         """
         def decorator(func):
             if not iscoroutine(func):
