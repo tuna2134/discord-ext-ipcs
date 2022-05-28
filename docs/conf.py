@@ -33,7 +33,7 @@ copyright = '2022, mc-fdc'
 author = 'mc-fdc'
 
 # The full version, including alpha/beta/rc tags
-release = _get_version("../discord/ext/ipcs/__init__.py")
+release = "v{}".format(_get_version("../discord/ext/ipcs/__init__.py"))
 
 
 # -- General configuration ---------------------------------------------------
