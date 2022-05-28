@@ -1,7 +1,7 @@
 # discord.ext.ipc - client
 from websockets.client import WebSocketClientProtocol
+from typing import Optional, Callable, Any, Coroutine
 from .errors import ConnectionError, AsyncError
-from typing import Optional, Callable, Any
 from .items import ResponseItem
 from inspect import iscoroutine
 from websockets import connect
