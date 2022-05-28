@@ -15,6 +15,17 @@ import sys
 sys.path.insert(0, os.path.abspath('../'))
 
 
+def _get_version(filename):
+    with open(filename, "r") as f:
+        lines = f.readlines()
+    version = None
+    for line in lines:
+        if "__version__" in line:
+            version = line.split()[2]
+            break
+    return version.replace('"', '')
+
+
 # -- Project information -----------------------------------------------------
 
 project = 'discord-ext-ipcs'
@@ -22,7 +33,7 @@ copyright = '2022, mc-fdc'
 author = 'mc-fdc'
 
 # The full version, including alpha/beta/rc tags
-release = 'v0.0.2'
+release = _get_version("../discord/ext/ipcs/__init__.py")
 
 
 # -- General configuration ---------------------------------------------------
