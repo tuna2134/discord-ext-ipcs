@@ -101,9 +101,7 @@ class Client:
         """Reconnect from ipc server
 
         Examples:
-            ```python
             await ipc_client.reconnect()
-            ```
         """
         await self.close()
         await asyncio.sleep(0.5)
@@ -150,12 +148,20 @@ class Client:
         return decorator
 
     def dispatch(self, eventtype: str, response: ResponseItem):
+        """Run function
+        
+        Args:
+            eventtype (str): Event type
+            response (ResponseItem): response item
+        """
         if eventtype in self.events:
             for coro in self.events[eventtype]:
                 self.loop.create_task(coro())
         self.client.dispatch("ipc_{}".format(eventtype))
 
     async def recv(self) -> None:
+        """Get data and dispatch
+        """
         data = loads(await self.ws.recv())
 
         if data["type"] == "close":
