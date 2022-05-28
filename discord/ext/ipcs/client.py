@@ -121,12 +121,12 @@ class Client:
         """
         return self.request("login", {"token": self.secret_key})
 
-    async def request(self, eventtype: str, data: Optiona[dict] = {}) -> None:
+    async def request(self, eventtype: str, data: Optional[dict] = {}) -> None:
         """Send something to ipc server
 
         Args:
             eventtype (str): event type
-            data (dict): The data you want to send.
+            data (Optional[dict]): The data you want to send.
 
         Examples:
             await ipc_client.request("hello", {"message": "What your name"})
