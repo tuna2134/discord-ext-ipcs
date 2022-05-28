@@ -1,5 +1,7 @@
 # discord-ext-ipc
 
+[![Documentation Status](https://readthedocs.org/projects/discord-ext-ipcs/badge/?version=latest)](https://discord-ext-ipcs.readthedocs.io/en/latest/?badge=latest)
+
 ## Example Client
 
 ```python
