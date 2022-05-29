@@ -7,6 +7,7 @@ from inspect import iscoroutine
 from websockets import connect
 from discord import Client
 import asyncio
+import logging
 
 try:
     from orjson import dumps, loads
