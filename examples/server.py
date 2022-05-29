@@ -1,10 +1,17 @@
 from websockets import serve
+import orjson
 import asyncio
 
 
 async def echo(ws):
     while True:
-        print(await ws.recv())
+        payload = orjson.loads(await ws.recv())
+        type_, data = payload["type"], payload["data"]
+        if type_ == "login":
+            if data["password"] == "":
+                await ws.send(orjson.dumps({"type": "ready", "data": {}}))
+            else:
+                await ws.close()
 
 
 async def main():
