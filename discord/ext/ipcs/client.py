@@ -13,6 +13,9 @@ try:
 except ImportError:
     from json import dumps, loads
 
+    
+logger = logging.getLogger(__name__)
+
 
 class Client:
     """ipc client
@@ -73,6 +76,7 @@ class Client:
         if self.ws is not None:
             raise ConnectionError("Already connected")
         self.ws = await connect(uri)
+        logger.debug("Connect to server")
         self.print("Connected")
         self.client.dispatch("ipc_connect")
         await self.login()
@@ -170,6 +174,7 @@ class Client:
         """Get data and dispatch
         """
         data = loads(await self.ws.recv())
+        logger.debug("[Catch event]type: {}, data: {}".format(data["type"], data["data"]))
 
         if data["type"] == "close":
             self.client.dispatch("ipc_close")
