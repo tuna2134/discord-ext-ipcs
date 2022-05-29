@@ -1,11 +1,11 @@
 import discord
-from discord.ext import ipc
+from discord.ext import ipcs
 
 
 class MyClient(discord.Client):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.ipc = ipc.Client(client, "Test")
+        self.ipc = ipcs.Client(client, "Test")
 
     async def setup_hook(self):
         async with self.ipc:
