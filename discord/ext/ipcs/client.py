@@ -33,6 +33,7 @@ class Client:
                  loop: Optional[asyncio.AbstractEventLoop] = None,
                  log: Optional[bool] = False):
         self.client = client
+        client.ipcs = self
         self.secret_key = secret_key
         self.loop = loop
         self.log: bool = log
